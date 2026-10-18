@@ -12,14 +12,21 @@ dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
+
+// Socket.io CORS setup with universal allow for production
 const io = new Server(server, {
   cors: {
-    origin: process.env.CLIENT_URL || 'http://localhost:5173',
+    origin: '*',
     credentials: true
   }
 });
 
-app.use(cors({ origin: process.env.CLIENT_URL || 'http://localhost:5173', credentials: true }));
+// Express CORS setup
+app.use(cors({ 
+  origin: '*', 
+  credentials: true 
+}));
+
 app.use(express.json());
 app.use(cookieParser());
 
