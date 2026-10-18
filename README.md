@@ -1,47 +1,110 @@
-# Watch Party (Vercel + Render)
 
-Real-time YouTube watch rooms with Host / Moderator / Participant roles.
-React (Vite) frontend + Express/Socket.IO backend. No database (rooms live in memory).
+# 🎬 SyncRoom
 
-**Live URL:** _add your Vercel URL here_
+### **Watch YouTube Together in Perfect Sync**
+*Sub-second video stream synchronization, server-enforced RBAC role security, and instant guest access without requiring an account[cite: 2].*
+
+[![Production](https://img.shields.io/badge/Status-Live%20%26%20Production-emerald?style=for-the-badge)](https://watch-party-opal.vercel.app)
+[![Tech Stack](https://img.shields.io/badge/Stack-MERN%20%2B%20Socket.io-violet?style=for-the-badge)](https://github.com/tiya-1/watch-party)
+
+</div>
+
+---
+
+## ✨ Key Features
+
+* **⚡ Ultra-Low Latency Synchronization:** Sub-second real-time playback synchronization (Play, Pause, and Seek actions update instantly across all room participants)[cite: 2].
+* **👑 Strict Role-Based Access Control (RBAC):** Original room creator acts as the **Host** with permissions to promote moderators, transfer host privileges, and manage or kick participants[cite: 1, 2].
+* **🎭 Instant Guest Mode:** Unauthenticated users automatically receive secure temporary guest identities (e.g., `Guest_6134`) to join watch parties instantly without friction[cite: 2].
+* **💬 Real-Time Chat & Emoji Reactions:** Interactive chat room with system join/leave notifications, floating emoji reactions, and an active Hype Meter.
+* **🎥 Shared Video Queue & Moods:** Collaborative video queue management, video voting, and dynamic cinematic atmosphere moods (Cinema, Neon Arcade, Lo-fi Rain, Sunset).
+
+---
+
+## 🛠️ Tech Stack
+
+* **Frontend:** React.js, Vite, TailwindCSS, Framer Motion, Lucide Icons, Socket.io-client
+* **Backend:** Node.js, Express.js, Socket.io, Mongoose, MongoDB Atlas
+* **Deployment:** Vercel (Frontend) & Render (Backend)[cite: 2]
+
+---
+
+## 🚀 Getting Started Locally
+
+### 1. Clone the Repository
 
 ```
-watch-party/
-├── frontend/   React + Vite  -> deploy on Vercel
-└── backend/    Express + Socket.IO -> deploy on Render
+
+bash
+git clone [https://github.com/tiya-1/watch-party.git](https://www.google.com/search?q=https%3A%2F%2Fgithub.com%2Ftiya-1%2Fwatch-party.git)
+cd watch-party
+
 ```
 
-## Run locally
-Terminal 1:
-    cd backend
-    npm install
-    npm run dev          # http://localhost:5000
+### 2. Setup Backend
 
-Terminal 2:
-    cd frontend
-    npm install
-    npm run dev          # http://localhost:5173
+```
 
-## Deploy
-Vercel cannot run WebSocket servers, so the backend goes on Render.
+bash
+cd backend
+npm install
 
-**1. Backend on Render** (New -> Web Service)
-- Root Directory: `backend`
-- Build Command: `npm install`
-- Start Command: `npm start`
-- Env var (after step 2): `CLIENT_ORIGIN` = your Vercel URL (no trailing slash)
-- Copy the Render URL, e.g. https://watch-party-api.onrender.com
+```
+Create a `.env` file inside the `backend` folder:
 
-**2. Frontend on Vercel** (Add New -> Project)
-- Root Directory: `frontend` (framework: Vite is auto-detected)
-- Env var: `VITE_SERVER_URL` = your Render URL
-- Deploy, then put the Vercel URL into `CLIENT_ORIGIN` on Render.
+```
 
-Render's free tier sleeps when idle, so open the backend URL once before demoing.
+env
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+CLIENT_URL=http://localhost:5173
 
-## How it works
-- `backend/index.js`: the server is the source of truth for playback state.
-- Host/Moderator emit `play | pause | seek | change_video`; the server checks the role, updates state, broadcasts `sync_state`.
-- Host only: `assign_role`, `remove_participant`, `transfer_host`. Roles are checked on the server; the UI only hides controls.
-- `frontend/src/components/YouTubePlayer.jsx`: wraps the YouTube IFrame API and detects scrubbing by polling time jumps.
-- Chat is UI only for now (messages are local to your browser).
+```
+Start the backend server:
+
+```
+
+bash
+npm run dev
+
+```
+
+### 3. Setup Frontend
+Open a new terminal tab and navigate to the frontend folder:
+
+```
+
+bash
+cd frontend
+npm install
+
+```
+Create a `.env` file inside the `frontend` folder:
+
+```
+
+env
+VITE_SERVER_URL=http://localhost:5000
+
+```
+Start the frontend development server:
+
+```
+
+bash
+npm run dev
+
+```
+
+---
+
+## 🤝 Contributing
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/tiya-1/watch-party/issues).
+
+---
+
+<div align="center">
+  <p>Built with ❤️ by Tiya Jain</p>
+</div>
+
+```
